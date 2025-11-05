@@ -58,7 +58,7 @@ const MedicalRecord = () => {
                 {records.map((record, index) => (
                     <div
                         key={record.id}
-                        className={`${bgColors[index % bgColors.length]} rounded-2xl shadow-md hover:shadow-lg transition-all p-6 border border-gray-200`}
+                        className={`${bgColors[index % bgColors.length]} rounded-2xl  shadow-md hover:shadow-lg transition transform hover:-translate-y-1 p-6`}
                     >
                         <div className="flex items-center gap-4 mb-3">
                             <div className="bg-white p-3 rounded-full shadow-sm">

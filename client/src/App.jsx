@@ -10,6 +10,11 @@ import BookAppointmentForm from './pages/patientdata/BookAppointmentForm.jsx'
 import MedicalRecord from './pages/patientdata/MedicalRecord.jsx'
 import UserProfile from './pages/patientdata/UserProfile.jsx'
 import View from './pages/patientdata/View.jsx'
+import DoctorAppointments from './pages/dashboard/doctordata/DoctorAppointments.jsx'
+import PatientRecords from './pages/dashboard/doctordata/PatientRecords.jsx'
+import AddNotes from './pages/dashboard/doctordata/AddNotes.jsx'
+import DoctorProfile from './pages/dashboard/doctordata/DoctorProfile.jsx'
+import DashboardOverview from './pages/dashboard/doctordata/DashboardOverview.jsx'
 
 const App = () => {
 
@@ -35,9 +40,20 @@ const App = () => {
               <Route path="/dashboard/patient/profile" element={<UserProfile />} />
             </Route>
           )}
+
+          {/* Doctor Dashboard Routes */}
           {userRole === "doctor" && (
-            <Route path="/dashboard/doctor" element={<DoctorDashboard />} />
+            <Route
+              path="/dashboard/doctor"
+              element={<DoctorDashboard />}>
+              <Route path="/dashboard/doctor" element={<DashboardOverview />} />
+              <Route path="/dashboard/doctor/appointments" element={<DoctorAppointments />} />
+              <Route path="/dashboard/doctor/patient-records" element={<PatientRecords />} />
+              <Route path="/dashboard/doctor/add-notes" element={<AddNotes />} />
+              <Route path="/dashboard/doctor/profile" element={<DoctorProfile />} />
+            </Route>
           )}
+
           {userRole === "admin" && (
             <Route path="/dashboard" element={<AdminDashboard />} />
           )}
