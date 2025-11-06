@@ -22,7 +22,7 @@ const DoctorDashboard = ({ role }) => {
       )}
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="bg-white shadow-md flex items-center justify-end px-6 py-4">
+        <header className={`bg-white shadow-md flex items-center justify-between md:justify-end px-6 py-4`}>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="text-2xl text-blue-600 md:hidden focus:outline-none"
@@ -43,15 +43,15 @@ const DoctorDashboard = ({ role }) => {
               alt="Profile"
               className="w-10 h-10 rounded-full border border-gray-300"
             />
-            <button type="button" className="bg-blue-700 py-2 px-3 rounded-md text-white font-bold"> <Link to='/login'>Logout</Link></button>
+            <Link to='/login'> <button type="button" className="bg-blue-700 py-2 px-3 rounded-md text-white font-bold"> {role}</button></Link>
           </div>
         </header>
 
-        <main className="bg-gray-50 min-h-screen overflow-y-scroll">
+        <main className="bg-gray-50 h-screen overflow-y-scroll">
           <Outlet />
         </main>
       </div>
-    </div>
+    </div >
   );
 };
 

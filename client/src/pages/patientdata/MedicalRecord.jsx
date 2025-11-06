@@ -1,5 +1,5 @@
 import React from "react";
-import { FaUserMd, FaCalendarAlt, FaClock, FaDoorOpen } from "react-icons/fa";
+import { FaUserMd, FaCalendarAlt, FaClock, FaDoorOpen, FaDiagnoses, FaSpeakap, FaTeamspeak, FaOldRepublic, FaNotesMedical, FaCapsules } from "react-icons/fa";
 
 const MedicalRecord = () => {
     const records = [
@@ -11,6 +11,13 @@ const MedicalRecord = () => {
             time: "3:00 PM - 3:15 PM",
             room: "Room 1",
             status: "Completed",
+            diagnosis: "High Blood presure",
+            prescribedMedicines: [
+                { "name": "Paracetamol 500mg", "dosage": "1 tablet", "duration": "5 days", "timing": "After breakfast" },
+                { "name": "Cough Syrup", "dosage": "10ml", "duration": "7 days", "timing": "Twice daily" }
+            ],
+            instructions: "Drink plenty of fluids and rest properly.",
+            notes: "Patient improving; monitor temperature daily."
         },
         {
             id: 2,
@@ -20,6 +27,14 @@ const MedicalRecord = () => {
             time: "1:30 PM - 1:45 PM",
             room: "Room 2",
             status: "Cancelled",
+            diagnosis: "High Blood presure",
+            prescribedMedicines: [
+                { "name": "Paracetamol 500mg", "dosage": "1 tablet", "duration": "5 days", "timing": "After breakfast" },
+                { "name": "Cough Syrup", "dosage": "10ml", "duration": "7 days", "timing": "Twice daily" }
+            ],
+            instructions: "Drink plenty of fluids and rest properly.",
+            notes: "Patient improving; monitor temperature daily."
+
         },
         {
             id: 3,
@@ -29,6 +44,14 @@ const MedicalRecord = () => {
             time: "5:00 PM - 5:15 PM",
             room: "Room 3",
             status: "Completed",
+            diagnosis: "High Blood presure",
+            prescribedMedicines: [
+                { "name": "Paracetamol 500mg", "dosage": "1 tablet", "duration": "5 days", "timing": "After breakfast" },
+                { "name": "Cough Syrup", "dosage": "10ml", "duration": "7 days", "timing": "Twice daily" }
+            ],
+            instructions: "Drink plenty of fluids and rest properly.",
+            notes: "Patient improving; monitor temperature daily."
+
         },
         {
             id: 4,
@@ -38,6 +61,14 @@ const MedicalRecord = () => {
             time: "7:15 PM - 7:30 PM",
             room: "Room 4",
             status: "Pending",
+            diagnosis: "High Blood presure",
+            prescribedMedicines: [
+                { "name": "Paracetamol 500mg", "dosage": "1 tablet", "duration": "5 days", "timing": "After breakfast" },
+                { "name": "Cough Syrup", "dosage": "10ml", "duration": "7 days", "timing": "Twice daily" }
+            ],
+            instructions: "Drink plenty of fluids and rest properly.",
+            notes: "Patient improving; monitor temperature daily."
+
         },
     ];
 
@@ -87,6 +118,29 @@ const MedicalRecord = () => {
                                 <FaDoorOpen className="text-yellow-600" />{" "}
                                 <span className="font-medium">Room:</span> {record.room}
                             </p>
+                            <p className="flex items-center gap-2">
+                                <FaDiagnoses className="text-yellow-600" />{" "}
+                                <span className="font-medium">Diagnosis:</span> {record.diagnosis}
+                            </p>
+                            <p className="flex items-center gap-2">
+                                <FaOldRepublic className="text-yellow-600" />{" "}
+                                <span className="font-medium">Instructions:</span> {record.instructions}
+                            </p>
+                            <p className="flex items-center gap-2">
+                                <FaNotesMedical className="text-yellow-600" />{" "}
+                                <span className="font-medium">Notes:</span> {record.notes}
+                            </p>
+                            <span className="text-center text-2xl font-bold border-b pb-1">Prescription</span>
+                            {record.prescribedMedicines && record.prescribedMedicines.map((medicine, index) => (
+                                <p key={index} className="flex items-center gap-2">
+                                    <FaCapsules className="text-yellow-600" />
+                                    <ul className="list-none">
+                                        <li>
+                                            <span className="font-medium list-none"> {medicine.name}</span> — {medicine.dosage}, {medicine.duration} ({medicine.timing})
+                                        </li>
+                                    </ul>
+                                </p>
+                            ))}
                         </div>
 
                         <div className="mt-4">
