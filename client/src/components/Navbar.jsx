@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
+  const navigate = useNavigate()
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.clear('token');
+    navigate('/login');
+  }
+
 
   return (
     <header className="bg-white shadow-md flex items-center justify-between px-6 py-4 relative">
@@ -25,20 +32,16 @@ const Navbar = () => {
         >
           Dashboard
         </Link>
-
-        <Link
-          to="/about"
-          className="text-lg font-medium text-gray-700 hover:text-blue-600 transition"
-        >
-          About
-        </Link>
       </nav>
 
       {/* Right Side - Profile & Menu Button */}
-      <div className="flex items-center gap-3">
-        <span className="text-gray-700 font-medium hidden sm:block">
-          Zohaib Akhter
-        </span>
+      <div className="flex  items-center gap-3">
+        <div className="text-center  w-[120px] h-[50px] flex flex-col">
+          <span className="text-gray-700 font-medium  sm:block h-[29px]">
+            {user?.name}
+          </span>
+          <span className="text-gray-700 text-sm w-full h-[20px]">{user?.role}</span>
+        </div>
         <FaUserCircle className="text-3xl text-blue-600" />
 
         {/* Mobile Menu Button */}
@@ -48,6 +51,7 @@ const Navbar = () => {
         >
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
+        <button type="button" className="bg-blue-700 py-2 px-3 rounded-md text-white font-bold" onClick={handleLogout}>Logout</button>
       </div>
 
       {/* Mobile Dropdown Menu */}

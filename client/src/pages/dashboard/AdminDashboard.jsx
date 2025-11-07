@@ -1,10 +1,16 @@
 import { useState } from "react";
 import Sidebar from "../../components/layout/Sidebar";
 import { FaBars, FaCalendarCheck, FaTimes } from "react-icons/fa";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const AdminDashboard = ({ role }) => {
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/login');
+  }
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -43,7 +49,7 @@ const AdminDashboard = ({ role }) => {
               alt="Profile"
               className="w-10 h-10 rounded-full border border-gray-300"
             />
-            <Link to='/login'> <button type="button" className="bg-blue-700 py-2 px-3 rounded-md text-white font-bold"> Logout</button></Link>
+            <button type="button" onClick={handleLogout} className="bg-blue-700 py-2 px-3 rounded-md text-white font-bold">Logout</button>
           </div>
         </header>
 

@@ -23,16 +23,17 @@ import RoomManagement from './pages/admindata/RoomManagement.jsx'
 import AppointmentRecords from './pages/admindata/AppointmentRecords.jsx'
 import AdminProfile from './pages/admindata/AdminProfile.jsx'
 import ReportsAnalytics from './pages/admindata/ReportsAnalytics.jsx'
-
+import { Toaster } from 'react-hot-toast'
 
 
 
 const App = () => {
 
-  const userRole = "admin"; // "doctor" | "admin" | "patient"
+  const userRole = 'admin' // "doctor" | "admin" | "patient"
 
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       {/* <UserProvider > */}
       <Router>
         <Routes>

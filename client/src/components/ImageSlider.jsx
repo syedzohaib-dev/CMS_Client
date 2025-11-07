@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 ;
 
-const ImageSlider = () => {
+const ImageSlider = ({ user }) => {
 
     return (
         <section className="relative w-full h-[85vh] overflow-hidden">
@@ -21,7 +21,15 @@ const ImageSlider = () => {
                         <span className="text-blue-400">Book An Appointment Today!</span>
                     </h1>
                     <button className="mt-6 bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium transition-all">
-                        <Link to='/dashboard/patient/bookappointment'>Book Appointment</Link>
+                        {user?.role === "patient" ? (
+                            <Link to="/dashboard/patient/bookappointment">Book Appointment</Link>
+                        ) : user?.role === "doctor" ? (
+                            <Link to="/dashboard/doctor">View Schedule</Link>
+                        ) : user?.role === "admin" ? (
+                            <Link to="/dashboard/admin">Go to Admin Panel</Link>
+                        ) : (
+                            <span>Login Required</span>
+                        )}
                     </button>
                 </div>
             </div>

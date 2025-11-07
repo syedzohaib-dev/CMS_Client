@@ -1,10 +1,16 @@
 import { useState } from "react";
 import Sidebar from "../../components/layout/Sidebar";
 import { FaBars, FaCalendarCheck, FaTimes } from "react-icons/fa";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 const DoctorDashboard = ({ role }) => {
+  const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate('/login');
+  }
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -35,7 +41,7 @@ const DoctorDashboard = ({ role }) => {
               <span className="text-gray-800 font-semibold text-sm sm:text-base">
                 Zohaib Akhter
               </span>
-              <span className="text-gray-500 text-xs sm:text-sm">{role} Doctor</span>
+              <span className="text-gray-500 text-xs sm:text-sm">{role}</span>
             </div>
 
             <img
@@ -43,7 +49,7 @@ const DoctorDashboard = ({ role }) => {
               alt="Profile"
               className="w-10 h-10 rounded-full border border-gray-300"
             />
-            <Link to='/login'> <button type="button" className="bg-blue-700 py-2 px-3 rounded-md text-white font-bold"> {role}</button></Link>
+            <button type="button" onClick={handleLogout} className="bg-blue-700 py-2 px-3 rounded-md text-white font-bold"> {role}</button>
           </div>
         </header>
 

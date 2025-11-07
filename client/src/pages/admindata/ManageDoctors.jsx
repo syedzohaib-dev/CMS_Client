@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { FaUserMd, FaEdit, FaTrashAlt } from "react-icons/fa";
+import { API_PATHS, BASE_URL } from "../../utils/apiPath";
+import axios from 'axios'
+import { useEffect } from "react";
+import toast from 'react-hot-toast'
 
 const ManageDoctors = () => {
     const [isEditing, setIsEditing] = useState(false);
@@ -16,7 +20,8 @@ const ManageDoctors = () => {
         age: "",
         gender: "",
         availableDays: "",
-        availableTime: "",
+        startTime: "",
+        endTime: "",
         profilePhoto: "",
     });
 
@@ -29,44 +34,93 @@ const ManageDoctors = () => {
     };
 
     // ✅ Submit button ke liye — dono case handle karta hai (Add or Edit)
-    const handleSubmit = (e) => {
+    // ✅ Add or Update Doctor
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem("token");
 
-        if (isEditing) {
-            // Edit Doctor (PUT)
-            setDoctors((prev) =>
-                prev.map((doc) =>
-                    doc.id === editingDoctorId ? { ...formData, id: editingDoctorId } : doc
-                )
-            );
-            setIsEditing(false);
-            setEditingDoctorId(null);
-        } else {
-            // Add Doctor (POST)
-            setDoctors([...doctors, { ...formData, id: Date.now() }]);
+        if (!token) {
+            toast.error("Unauthorized! Please login again.");
+            return;
         }
 
-        // ✅ Reset form after submit
-        setFormData({
-            name: "",
-            email: "",
-            password: "",
-            specialization: "",
-            degree: "",
-            experience: "",
-            age: "",
-            gender: "",
-            availableDays: "",
-            availableTime: "",
-            profilePhoto: "",
-        });
+        try {
+            if (isEditing) {
+                // Update doctor
+                const response = await axios.put(
+                    `${BASE_URL}${API_PATHS.ADMIN.UPDATE_DOCTOR(editingDoctorId)}`,
+                    formData,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                toast.success("Doctor updated successfully!");
+            } else {
+                // Add doctor
+                const response = await axios.post(
+                    `${BASE_URL}${API_PATHS.ADMIN.ADD_DOCTOR}`,
+                    formData,
+                    { headers: { Authorization: `Bearer ${token}` } }
+                );
+                toast.success("Doctor added successfully!");
+            }
+
+            // Refresh list
+            fetchDoctors();
+            setFormData({
+                name: "",
+                email: "",
+                password: "",
+                specialization: "",
+                degree: "",
+                experience: "",
+                age: "",
+                gender: "",
+                availableDays: "",
+                startTime: "",
+                endTime: "",
+            });
+            setIsEditing(false);
+            setEditingDoctorId(null);
+        } catch (error) {
+            console.error("Add/Update Doctor Error:", error);
+            toast.error(error.response?.data?.message || "Failed to save doctor");
+        }
     };
+
+    // ✅ Fetch all doctors
+    const fetchDoctors = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        try {
+            const res = await axios.get(`${BASE_URL}${API_PATHS.ADMIN.GET_DOCTORS}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            setDoctors(res.data.doctors || []);
+            console.log(res.data.doctors)
+        } catch (err) {
+            console.error("Fetch doctors error:", err);
+        }
+    };
+
+    useEffect(() => {
+        fetchDoctors();
+    }, []);
+
 
     // ✅ Delete doctor
-    const handleDelete = (id) => {
-        setDoctors(doctors.filter((doc) => doc.id !== id));
+    // ✅ Delete Doctor
+    const handleDelete = async (id) => {
+        const token = localStorage.getItem("token");
+        try {
+            await axios.delete(`${BASE_URL}${API_PATHS.ADMIN.DELETE_DOCTOR(id)}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
+            toast.success("Doctor deleted successfully!");
+            fetchDoctors();
+        } catch (err) {
+            console.error("Delete doctor error:", err);
+            toast.error("Failed to delete doctor");
+        }
     };
-
     // ✅ Edit doctor — form prefill ho jata hai purani value se
     const handleEdit = (doctor) => {
         setFormData({
@@ -79,11 +133,12 @@ const ManageDoctors = () => {
             age: doctor.age || "",
             gender: doctor.gender || "",
             availableDays: doctor.availableDays || "",
-            availableTime: doctor.availableTime || "",
+            startTime: doctor.startTime || "",
+            endTime: doctor.endTime || "",
             profilePhoto: doctor.profilePhoto || "",
         });
         setIsEditing(true);
-        setEditingDoctorId(doctor.id);
+        setEditingDoctorId(doctor._id);
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
@@ -220,8 +275,8 @@ const ManageDoctors = () => {
                             <label className="block text-gray-700 mb-1 font-medium">Start Time</label>
                             <input
                                 type="text"
-                                name="availableTime"
-                                value={formData.availableTime || ""}
+                                name="startTime"
+                                value={formData.startTime || ""}
                                 onChange={handleChange}
                                 placeholder="e.g. 10 AM"
                                 className="w-[90%] border rounded-lg px-3 py-2 focus:outline-blue-500"
@@ -231,8 +286,8 @@ const ManageDoctors = () => {
                             <label className="block text-gray-700 mb-1 font-medium">End Time</label>
                             <input
                                 type="text"
-                                name="availableTime"
-                                value={formData.availableTime || ""}
+                                name="endTime"
+                                value={formData.endTime || ""}
                                 onChange={handleChange}
                                 placeholder="e.g. 4 PM"
                                 className="w-[90%] border rounded-lg px-3 py-2 focus:outline-blue-500"
@@ -300,7 +355,7 @@ const ManageDoctors = () => {
                                     <td className="p-3 text-gray-600">{doc.specialization}</td>
                                     <td className="p-3 text-gray-600">{doc.experience}</td>
                                     <td className="p-3 text-gray-600">
-                                        {doc.availableDays} <br /> {doc.availableTime}
+                                        {doc.availableDays} <br /> {doc.startTime} || {doc.endTime}
                                     </td>
                                     <td className="px-3 py-6 text-right flex justify-end gap-3">
                                         <button
