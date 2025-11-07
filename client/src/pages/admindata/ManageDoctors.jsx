@@ -107,7 +107,7 @@ const ManageDoctors = () => {
                             name="name"
                             value={formData.name || ""}
                             onChange={handleChange}
-                            className="w-full border rounded-lg px-3 py-2"
+                            className="w-full border rounded-lg px-3 py-2  focus:outline-blue-500"
                             required
                         />
                     </div>
@@ -215,17 +215,32 @@ const ManageDoctors = () => {
                     </div>
 
                     {/* Available Time */}
-                    <div>
-                        <label className="block text-gray-700 mb-1 font-medium">Available Time</label>
-                        <input
-                            type="text"
-                            name="availableTime"
-                            value={formData.availableTime || ""}
-                            onChange={handleChange}
-                            placeholder="e.g. 10 AM - 4 PM"
-                            className="w-full border rounded-lg px-3 py-2 focus:outline-blue-500"
-                        />
+                    <div className="flex">
+                        <div className="w-[50%] ">
+                            <label className="block text-gray-700 mb-1 font-medium">Start Time</label>
+                            <input
+                                type="text"
+                                name="availableTime"
+                                value={formData.availableTime || ""}
+                                onChange={handleChange}
+                                placeholder="e.g. 10 AM"
+                                className="w-[90%] border rounded-lg px-3 py-2 focus:outline-blue-500"
+                            />
+                        </div>
+                        <div className="w-[50%] ">
+                            <label className="block text-gray-700 mb-1 font-medium">End Time</label>
+                            <input
+                                type="text"
+                                name="availableTime"
+                                value={formData.availableTime || ""}
+                                onChange={handleChange}
+                                placeholder="e.g. 4 PM"
+                                className="w-[90%] border rounded-lg px-3 py-2 focus:outline-blue-500"
+                            />
+                        </div>
                     </div>
+
+
 
                     {/* Profile Photo */}
                     <div className="md:col-span-2">
