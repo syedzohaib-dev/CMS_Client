@@ -29,7 +29,7 @@ import { Toaster } from 'react-hot-toast'
 
 const App = () => {
 
-  const userRole = 'admin' // "doctor" | "admin" | "patient"
+  const userRole = localStorage.getItem('role') // "doctor" | "admin" | "patient"
 
   return (
     <>

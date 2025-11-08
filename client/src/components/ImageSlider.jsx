@@ -24,7 +24,7 @@ const ImageSlider = ({ user }) => {
                         {user?.role === "patient" ? (
                             <Link to="/dashboard/patient/bookappointment">Book Appointment</Link>
                         ) : user?.role === "doctor" ? (
-                            <Link to="/dashboard/doctor">View Schedule</Link>
+                            <Link to="/dashboard/doctor/overview">View Schedule</Link>
                         ) : user?.role === "admin" ? (
                             <Link to="/dashboard/admin">Go to Admin Panel</Link>
                         ) : (

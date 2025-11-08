@@ -34,6 +34,10 @@ const Login = () => {
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
       }
+      if (response.data.user.role) {
+        localStorage.setItem('role', response.data.user.role)
+      }
+
 
       toast.success("Login Successful!");
 

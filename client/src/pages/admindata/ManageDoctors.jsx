@@ -22,19 +22,18 @@ const ManageDoctors = () => {
         availableDays: "",
         startTime: "",
         endTime: "",
-        profilePhoto: "",
+        profileImgURL: "",
     });
 
     const [doctors, setDoctors] = useState([]);
 
-    // ✅ Controlled input handler
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
-    // ✅ Submit button ke liye — dono case handle karta hai (Add or Edit)
-    // ✅ Add or Update Doctor
+    //  Add or Update Doctor
     const handleSubmit = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem("token");
@@ -60,6 +59,7 @@ const ManageDoctors = () => {
                     formData,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
+                console.log(response.data)
                 toast.success("Doctor added successfully!");
             }
 
@@ -77,6 +77,7 @@ const ManageDoctors = () => {
                 availableDays: "",
                 startTime: "",
                 endTime: "",
+                profileImgURL: ""
             });
             setIsEditing(false);
             setEditingDoctorId(null);
@@ -107,17 +108,18 @@ const ManageDoctors = () => {
 
 
     // ✅ Delete doctor
-    // ✅ Delete Doctor
-    const handleDelete = async (id) => {
+    const handleDelete = async (_id) => {
+        if (!window.confirm("Are you sure you want to delete this doctor?")) return;
+
         const token = localStorage.getItem("token");
         try {
-            await axios.delete(`${BASE_URL}${API_PATHS.ADMIN.DELETE_DOCTOR(id)}`, {
+            await axios.delete(`${BASE_URL}${API_PATHS.ADMIN.DELETE_DOCTOR(_id)}`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
             toast.success("Doctor deleted successfully!");
             fetchDoctors();
         } catch (err) {
-            console.error("Delete doctor error:", err);
+            console.error("Delete doctor error:", err.response?.data || err.message);
             toast.error("Failed to delete doctor");
         }
     };
@@ -135,7 +137,7 @@ const ManageDoctors = () => {
             availableDays: doctor.availableDays || "",
             startTime: doctor.startTime || "",
             endTime: doctor.endTime || "",
-            profilePhoto: doctor.profilePhoto || "",
+            profileImgURL: doctor.profileImgURL || "",
         });
         setIsEditing(true);
         setEditingDoctorId(doctor._id);
@@ -250,9 +252,8 @@ const ManageDoctors = () => {
                             className="w-full border rounded-lg px-3 py-2 focus:outline-blue-500"
                         >
                             <option value="">Select Gender</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Other</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                         </select>
                     </div>
 
@@ -296,14 +297,13 @@ const ManageDoctors = () => {
                     </div>
 
 
-
                     {/* Profile Photo */}
                     <div className="md:col-span-2">
                         <label className="block text-gray-700 mb-1 font-medium">Profile Photo URL</label>
                         <input
                             type="text"
-                            name="profilePhoto"
-                            value={formData.profilePhoto || ""}
+                            name="profileImgURL"
+                            value={formData.profileImgURL}
                             onChange={handleChange}
                             className="w-full border rounded-lg px-3 py-2 focus:outline-blue-500"
                         />
@@ -339,34 +339,34 @@ const ManageDoctors = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {doctors.map((doc) => (
-                                <tr key={doc.id} className="border-b hover:bg-gray-50 transition-all">
+                            {doctors.map((doc, index) => (
+                                <tr key={doc._id} className="border-b hover:bg-gray-50 transition-all">
                                     <td className="p-3">
                                         <img
                                             src={
-                                                doc.profilePhoto ||
+                                                doc?.profileImgURL ||
                                                 "https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
                                             }
                                             alt={doc.name}
                                             className="w-12 h-12 rounded-full object-cover"
                                         />
                                     </td>
-                                    <td className="p-3 font-semibold text-gray-800">{doc.name}</td>
+                                    <td className="p-3 font-semibold text-gray-800">Dr. {doc.name}</td>
                                     <td className="p-3 text-gray-600">{doc.specialization}</td>
                                     <td className="p-3 text-gray-600">{doc.experience}</td>
                                     <td className="p-3 text-gray-600">
-                                        {doc.availableDays} <br /> {doc.startTime} || {doc.endTime}
+                                        {doc.availableDays} <br /> {doc.startTime} <b>To</b> {doc.endTime}
                                     </td>
                                     <td className="px-3 py-6 text-right flex justify-end gap-3">
                                         <button
-                                            onClick={() => handleEdit(doc)} // ✅ fixed here
+                                            onClick={() => handleEdit(doc)}
                                             className="text-blue-600 hover:text-blue-800 text-xl transition"
                                             title="Edit"
                                         >
                                             <FaEdit />
                                         </button>
                                         <button
-                                            onClick={() => handleDelete(doc.id)}
+                                            onClick={() => handleDelete(doc._id)}
                                             className="text-red-600 hover:text-red-800 text-xl transition"
                                             title="Delete"
                                         >

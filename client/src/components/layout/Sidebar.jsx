@@ -39,11 +39,11 @@ const Sidebar = ({ role, isOpen, setIsOpen }) => {
         {role} Dashboard
       </h2>
       <nav className="space-y-2 px-4">
-        {links.map((link, i) => (
+        {links.map((link, index) => (
           <NavLink
-            to={link.path}
+            to={link.path} key={index}
             className="">
-            <span key={i} className=" flex items-center gap-3 my-3 px-4 py-3 text-[1rem] rounded-lg text-gray-700 hover:bg-blue-100 bg-blue-50  hover:text-blue-600 transition">
+            <span className=" flex items-center gap-3 my-3 px-4 py-3 text-[1rem] rounded-lg text-gray-700 hover:bg-blue-100 bg-blue-50  hover:text-blue-600 transition">
               {link.icon}
 
               {link.name}
