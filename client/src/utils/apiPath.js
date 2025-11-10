@@ -1,10 +1,7 @@
-// utils/apiPaths.js
 
-// Base URLs for local and production
-const LOCAL_BASE_URL = "http://localhost:3000"; // backend port
-const PROD_BASE_URL = "";
+const LOCAL_BASE_URL = "http://localhost:3000"; 
+const PROD_BASE_URL = "https://cms-server-one.vercel.app";
 
-// Detect environment automatically
 export const BASE_URL =
     window.location.hostname === "localhost" ? LOCAL_BASE_URL : PROD_BASE_URL;
 
