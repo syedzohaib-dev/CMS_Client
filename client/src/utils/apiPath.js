@@ -23,5 +23,10 @@ export const API_PATHS = {
         ADD_ROOM: "/api/v1/admin/rooms/add-room",
         GET_ROOMS: "/api/v1/admin/rooms/get",
     },
+    PATIENT: {
+        BOOK_APPOINTMENT: "/api/v1/patient/book-appointment",
+        GET_SLOTS: (doctorId, date) => `/api/v1/patient/slots?doctorId=${doctorId}&date=${date}`,
+        GET_MY_APPOINTMENT: "/api/v1/patient/my-appointment"
+    },
 
 };

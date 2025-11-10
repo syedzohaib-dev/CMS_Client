@@ -62,7 +62,7 @@ const AddNotes = () => {
   return (
     <div className="p-8 bg-gray-50">
       <h2 className="text-3xl font-bold text-blue-700 mb-6 text-center">
-        Check Patient & Add Patient Notes & Prescription
+        Check Patient, Add Patient Notes & Prescription
       </h2>
 
       <form
