@@ -105,10 +105,15 @@ const RoomManagement = () => {
           <div>
             <label className="block text-gray-700 font-medium mb-1">Room Number</label>
             <input
-              type="text"
+              type="number"
               name="roomNumber"
               value={formData.roomNumber}
-              onChange={handleChange}
+              onChange={(e) => {
+                const value = e.target.value
+                if (value === "" || Number(value) > 0) {
+                  setFormData({ ...formData, roomNumber: value })
+                }
+              }}
               placeholder="Enter room number"
               className="w-full border rounded-lg px-3 py-2 focus:outline-blue-500"
               required

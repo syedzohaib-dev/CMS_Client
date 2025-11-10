@@ -194,7 +194,12 @@ const Signup = () => {
                 type="number"
                 name="age"
                 value={formData.age}
-                onChange={handleChange}
+                onChange={(e) => {
+                  const value = e.target.value
+                  if (value === "" || Number(value) > 0) {
+                    setFormData({ ...formData, age: value })
+                  }
+                }}
                 required
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 placeholder="Enter your age"

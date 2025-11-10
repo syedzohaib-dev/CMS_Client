@@ -1,5 +1,5 @@
 
-const LOCAL_BASE_URL = "http://localhost:3000"; 
+const LOCAL_BASE_URL = "http://localhost:3000";
 const PROD_BASE_URL = "https://cms-server-one.vercel.app";
 
 export const BASE_URL =
@@ -11,6 +11,7 @@ export const API_PATHS = {
         LOGIN: "/api/v1/auth/login",
         SIGNUP: "/api/v1/auth/signup",
         GET_USER_INFO: "/api/v1/auth/getuser",
+        GET_ALL_USER: '/api/v1/auth/getalluser'
     },
     ADMIN: {
         ADD_DOCTOR: "/api/v1/admin/add-doctor",
@@ -19,6 +20,7 @@ export const API_PATHS = {
         DELETE_DOCTOR: (id) => `/api/v1/admin/delete-doctor/${id}`,
         ADD_ROOM: "/api/v1/admin/rooms/add-room",
         GET_ROOMS: "/api/v1/admin/rooms/get",
+        OVERVIEW: "/api/v1/admin/overview",
     },
     PATIENT: {
         BOOK_APPOINTMENT: "/api/v1/patient/book-appointment",

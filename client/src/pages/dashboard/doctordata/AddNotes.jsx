@@ -60,14 +60,14 @@ const AddNotes = () => {
   );
 
   return (
-    <div className="p-8 bg-gray-50">
+    <div className="p-8 bg-gray-100">
       <h2 className="text-3xl font-bold text-blue-700 mb-6 text-center">
         Check Patient, Add Patient Notes & Prescription
       </h2>
 
       <form
         onSubmit={handleSubmit}
-        className="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-md space-y-6"
+        className="max-w-6xl mx-auto bg-white p-8 rounded-2xl shadow-md space-y-6"
       >
         {/* Select Patient */}
         <div>

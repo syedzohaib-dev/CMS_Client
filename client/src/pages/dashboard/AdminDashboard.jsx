@@ -1,16 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "../../components/layout/Sidebar";
 import { FaBars, FaCalendarCheck, FaTimes } from "react-icons/fa";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import axios from 'axios'
+import { API_PATHS, BASE_URL } from "../../utils/apiPath";
 
 const AdminDashboard = ({ role }) => {
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
+  const [allUser, setAllUser] = useState([])
 
   const handleLogout = () => {
     localStorage.clear();
     navigate('/login');
   }
+
+  const getAllUsers = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("No token found in localStorage");
+        return;
+      }
+      const res = await axios.get(`${BASE_URL}${API_PATHS.AUTH.GET_ALL_USER}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setAllUser(res?.data?.allUser)
+    } catch (error) {
+      console.error("Error fetching users:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    getAllUsers();
+  }, [])
+
+
+
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -54,7 +80,9 @@ const AdminDashboard = ({ role }) => {
         </header>
 
         <main className="bg-gray-50 h-screen overflow-y-scroll">
-          <Outlet />
+          <Outlet
+            context={{ allUser }}
+          />
         </main>
       </div>
     </div >
