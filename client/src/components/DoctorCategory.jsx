@@ -61,9 +61,7 @@ const DoctorCategory = () => {
                                 <p className="text-gray-500 mt-2 text-sm">
                                     🕒 Available: {doctor.time}
                                 </p>
-                                <button className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-5 py-2 rounded-lg text-sm transition-all">
-                                    <Link to='/dashboard/patient'>Book Appointment</Link>
-                                </button>
+
                             </div>
                         </div>
                     ))}

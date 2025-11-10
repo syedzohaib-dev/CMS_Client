@@ -3,6 +3,7 @@ import { BASE_URL, API_PATHS } from "../utils/apiPath.js";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { validateEmail } from "../utils/helper.js";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Signup = () => {
 
   // form validation
   const validateForm = () => {
+
     if (!formData.name.trim()) {
       toast.error("Name is required");
       return false;
@@ -31,6 +33,7 @@ const Signup = () => {
       toast.error("Please enter a valid email");
       return false;
     }
+
     if (formData.password.length < 8) {
       toast.error("Password must be at least 8 characters long");
       return false;
@@ -49,6 +52,17 @@ const Signup = () => {
   // form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateEmail(formData.email)) {
+      toast.error('Please enter a valid email address.')
+      return false;
+    }
+
+    // Check empty fields
+    // if (!name || !formData.email || !password || !gender || !age) {
+    //   toast.error("Please fill in all fields!");
+    //   return;
+    // }
 
     if (loading) return;
     if (!validateForm()) return;
@@ -92,7 +106,7 @@ const Signup = () => {
     <div className="minh-screen flex flex-col md:flex-row">
       {/* Right Side - Signup Form */}
       <div className="w-full h-screen md:w-1/2 flex items-center justify-center bg-gray-50 px-6 py-4">
-        <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-10 md:p-8 flex flex-col justify-center border">
+        <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-10 md:p-8 flex flex-col justify-center">
           <h2 className="text-4xl font-bold text-center text-gray-800 mb-2">
             Create Your Account
           </h2>

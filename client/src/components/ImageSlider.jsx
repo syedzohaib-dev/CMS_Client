@@ -28,7 +28,7 @@ const ImageSlider = ({ user }) => {
                         ) : user?.role === "admin" ? (
                             <Link to="/dashboard/admin">Go to Admin Panel</Link>
                         ) : (
-                            <span>Login Required</span>
+                            <Link to="/login"><span>Login Required</span></Link>
                         )}
                     </button>
                 </div>

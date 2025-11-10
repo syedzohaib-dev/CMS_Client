@@ -12,6 +12,9 @@ const Navbar = ({ user }) => {
     navigate('/login');
   }
 
+  const token = localStorage.getItem('token')
+
+
 
   return (
     <header className="bg-white shadow-md flex items-center justify-between px-6 py-4 relative">
@@ -20,19 +23,7 @@ const Navbar = ({ user }) => {
 
       {/* Desktop Menu */}
       <nav className="hidden md:flex gap-6">
-        <Link
-          to="/"
-          className="text-lg font-medium text-gray-700 hover:text-blue-600 transition"
-        >
-          Home
-        </Link>
 
-        <Link
-          to="/dashboard"
-          className="text-lg font-medium text-gray-700 hover:text-blue-600 transition"
-        >
-          Dashboard
-        </Link>
       </nav>
 
       {/* Right Side - Profile & Menu Button */}
@@ -52,36 +43,21 @@ const Navbar = ({ user }) => {
         >
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
-        <button type="button" className="bg-blue-700 py-2 px-3 rounded-md text-white font-bold" onClick={handleLogout}>Logout</button>
+        {
+          token ? (
+            <button type="button" className="bg-blue-700 py-2 px-3 rounded-md text-white font-bold" onClick={handleLogout}>Logout</button>
+          ) : (
+            <Link to='/login'>  <button type="button" className="bg-blue-700 py-2 px-3 rounded-md text-white font-bold">Login</button></Link>
+          )
+        }
+
       </div>
 
       {/* Mobile Dropdown Menu */}
       {menuOpen && (
         <div className="absolute top-[72px] left-0 w-full bg-white shadow-md md:hidden z-50">
           <nav className="flex flex-col items-center py-4 gap-4">
-            <Link
-              to="/"
-              onClick={() => setMenuOpen(false)}
-              className="text-lg font-medium text-gray-700 hover:text-blue-600 transition"
-            >
-              Home
-            </Link>
 
-            <Link
-              to="/dashboard"
-              onClick={() => setMenuOpen(false)}
-              className="text-lg font-medium text-gray-700 hover:text-blue-600 transition"
-            >
-              Dashboard
-            </Link>
-
-            <Link
-              to="/about"
-              onClick={() => setMenuOpen(false)}
-              className="text-lg font-medium text-gray-700 hover:text-blue-600 transition"
-            >
-              About
-            </Link>
           </nav>
         </div>
       )}
