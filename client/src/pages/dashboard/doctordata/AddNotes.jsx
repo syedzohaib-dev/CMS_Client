@@ -56,7 +56,7 @@ const AddNotes = () => {
 
   // Get selected patient info
   const selectedPatient = patients.find(
-    (p) => p.id === Number(formData.patientId)
+    (p) => p.id === Number(formData.patientId) 
   );
 
   return (
