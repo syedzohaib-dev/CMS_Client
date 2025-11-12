@@ -6,13 +6,48 @@ import View from "../patientdata/View.jsx";
 import MedicalRecord from "../patientdata/MedicalRecord.jsx";
 import UserProfile from "../patientdata/UserProfile.jsx";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { API_PATHS, BASE_URL } from "../../utils/apiPath.js";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 
 
 const PatientDashboard = ({ role }) => {
+
+  const [patientData, setPatientData] = useState([])
+
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("book");
+
+  const fetchPatientData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Unauthorized! Please login again.");
+        return null;
+      }
+
+      const res = await axios.get(`${BASE_URL}${API_PATHS.PATIENT.GET_DATA}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setPatientData(res.data.patient)
+      console.log(res?.data?.patient)
+
+    } catch (error) {
+      console.error("Fetch Patient Data Error:", error);
+      toast.error(error.response?.data?.message || "Failed to fetch patient data");
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    fetchPatientData()
+  }, [])
+
+
 
   const renderContent = () => {
     switch (activeSection) {
@@ -26,7 +61,7 @@ const PatientDashboard = ({ role }) => {
         );
       case "/dashboard/patient/profile":
         return (
-          <UserProfile />
+          <UserProfile patientData={patientData} />
         );
       default:
         return null;
@@ -68,13 +103,13 @@ const PatientDashboard = ({ role }) => {
           <div className="flex items-center gap-3">
             <div className="flex flex-col items-end">
               <span className="text-gray-800 font-semibold text-sm sm:text-base">
-                Zohaib Akhter
+                {patientData.name}
               </span>
               <span className="text-gray-500 text-xs sm:text-sm">{role}</span>
             </div>
 
             <img
-              src="https://i.pravatar.cc/40?img=5"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiibOngFYog5Ri5UoFKH3CsHMOvomBLf4JAw&s"
               alt="Profile"
               className="w-10 h-10 rounded-full border border-gray-300"
             />
@@ -85,7 +120,7 @@ const PatientDashboard = ({ role }) => {
 
         <main className="bg-gray-50 min-h-screen overflow-y-scroll">
           {/* {renderContent()} */}
-          <Outlet />
+          <Outlet context={{ patientData }} />
         </main>
       </div>
     </div>

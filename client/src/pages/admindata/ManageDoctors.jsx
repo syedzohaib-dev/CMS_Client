@@ -12,6 +12,18 @@ const ManageDoctors = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editingDoctorId, setEditingDoctorId] = useState(null);
     const [doctors, setDoctors] = useState([]);
+
+
+    function convertTo12HourFormat(time24) {
+        let [hours, minutes] = time24.split(":");
+        hours = parseInt(hours, 10);
+        const ampm = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12 || 12; // convert 0 to 12
+        return `${hours}:${minutes} ${ampm}`;
+    }
+
+
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -26,6 +38,8 @@ const ManageDoctors = () => {
         endTime: "",
         profileImgURL: "",
     });
+
+
 
     const allDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
@@ -55,16 +69,28 @@ const ManageDoctors = () => {
             return;
         }
 
+        // Example use before sending API request
+        const formattedStart = convertTo12HourFormat(formData.startTime); // 11:00 -> 11:00 AM
+        const formattedEnd = convertTo12HourFormat(formData.endTime);     // 15:00 -> 3:00 PM
+        console.log(formattedStart, formattedEnd)
+
+        const payload = {
+            ...formData,
+            startTime: formattedStart,
+            endTime: formattedEnd,
+        };
+
+
         try {
             if (isEditing) {
                 await axios.put(
                     `${BASE_URL}${API_PATHS.ADMIN.UPDATE_DOCTOR(editingDoctorId)}`,
-                    formData,
+                    payload,
                     { headers: { Authorization: `Bearer ${token}` } }
                 );
                 toast.success("Doctor updated successfully!");
             } else {
-                await axios.post(`${BASE_URL}${API_PATHS.ADMIN.ADD_DOCTOR}`, formData, {
+                await axios.post(`${BASE_URL}${API_PATHS.ADMIN.ADD_DOCTOR}`, payload, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 toast.success("Doctor added successfully!");

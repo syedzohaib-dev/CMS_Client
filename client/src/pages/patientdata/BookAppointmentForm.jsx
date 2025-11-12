@@ -20,7 +20,7 @@ const BookAppointmentForm = () => {
       try {
         setLoading(true);
         const token = localStorage.getItem("token");
-        const res = await axios.get(`${BASE_URL}${API_PATHS.ADMIN.GET_DOCTORS}`, {
+        const res = await axios.get(`${BASE_URL}${API_PATHS.PATIENT.GET_TODAY_DOCTORS}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log(res?.data?.doctors)
@@ -80,7 +80,8 @@ const BookAppointmentForm = () => {
         console.log(`${BASE_URL}${API_PATHS.PATIENT.GET_SLOTS(formData.doctorId)}?date=${formData.date}`);
 
         console.log("Slots fetched:", res.data.slots);
-        setSlots(res.data.slots || []);
+        setSlots(res.data.slots?.filter((s) => s.trim()) || []);
+        // setSlots(res.data.slots || []);
       } catch (err) {
         console.error("Error fetching slots:", err);
         toast.error("Failed to load available slots");
@@ -153,7 +154,7 @@ const BookAppointmentForm = () => {
                 className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400"
                 required
               >
-                <option value="">-- Choose Doctor --</option>
+                <option value="">Choose Today Doctor</option>
                 {doctors.map((doc) => (
                   <option key={doc._id} value={doc._id}>
                     {doc.name} ({doc.specialization})
@@ -172,7 +173,7 @@ const BookAppointmentForm = () => {
                 disabled={!formData.doctorId}
                 className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 disabled:bg-gray-100"
               >
-                <option value="">-- Select Day --</option>
+                <option value="">Select Day</option>
                 {availableDays.map((d, i) => (
                   <option key={i} value={d}>
                     {d}
@@ -199,14 +200,14 @@ const BookAppointmentForm = () => {
             <div>
               <label className="font-medium text-gray-700 mb-2 block">Available Time Slots</label>
               <select
-                name="time"
+                name="time" 
                 value={formData.time}
                 onChange={handleChange}
                 disabled={!formData.date}
                 className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-400 disabled:bg-gray-100"
                 required
               >
-                <option value="">-- Choose Time --</option>
+                <option value="">Choose Time</option>
                 {slots.map((slot, i) => (
                   <option key={i} value={slot}>
                     {slot}

@@ -41,7 +41,7 @@ const ManagePatients = () => {
                   <td className="p-3 text-gray-600">{p.age}</td>
                   <td className="p-3 text-gray-600">{p.gender}</td>
                   <td className="p-3 text-gray-600">{p.role}</td>
-                  <td className="p-3 text-gray-600">{p.email}</td>F
+                  <td className="p-3 text-gray-600">{p.email}</td>
                 </tr>
               ))}
             </tbody>

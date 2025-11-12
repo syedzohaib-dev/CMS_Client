@@ -1,42 +1,46 @@
 import React from "react";
 import { FaUserMd, FaClock, FaNotesMedical, FaUser } from "react-icons/fa";
+import { API_PATHS, BASE_URL } from "../../../utils/apiPath.js";
+import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const TodayPatientsList = () => {
-  const patients = [
-    {
-      id: 1,
-      name: "Ali Khan",
-      age: 28,
-      gender: "Male",
-      department: "Cardiology",
-      doctor: "Dr. Ahsan Khan",
-      time: "10:30 AM",
-      status: "Checked",
-    },
-    {
-      id: 2,
-      name: "Sara Malik",
-      age: 24,
-      gender: "Female",
-      department: "Dermatology",
-      doctor: "Dr. Mehwish Ali",
-      time: "12:00 PM",
-      status: "Pending",
-    },
-    {
-      id: 3,
-      name: "Bilal Ahmed",
-      age: 35,
-      gender: "Male",
-      department: "Neurology",
-      doctor: "Dr. Bilal Ahmed",
-      time: "02:15 PM",
-      status: "Ongoing",
-    },
-  ];
 
-  const getStatusColor = (status) => {
-    switch (status) {
+  const [doctorPatients, setDoctorPatients] = useState([])
+
+  const fetchDoctorPatients = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Unauthorized! Please login again.");
+        return [];
+      }
+
+      const res = await axios.get(`${BASE_URL}${API_PATHS.DOCTOR.GET_PATIENTS}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      console.log(res?.data?.patients)
+      setDoctorPatients(res?.data?.patients)
+
+    } catch (error) {
+      console.error("Fetch Doctor Patients Error:", error);
+      toast.error(
+        error.response?.data?.message || "Something went wrong while fetching patients"
+      );
+
+    }
+  };
+
+  useEffect(() => {
+    fetchDoctorPatients()
+  }, [])
+
+
+  const getStatusColor = (doctorPatients) => {
+    switch (doctorPatients) {
       case "Checked":
         return "bg-green-100 text-green-700";
       case "Pending":
@@ -52,7 +56,7 @@ const TodayPatientsList = () => {
         Today's Patients
       </h2>
 
-      {patients.length === 0 ? (
+      {doctorPatients.length === 0 ? (
         <div className="text-center text-gray-600 bg-white rounded-xl shadow-md p-10 max-w-md mx-auto">
           <FaUserMd className="text-blue-500 text-5xl mx-auto mb-3" />
           <h3 className="text-xl font-semibold mb-1">No Patients Today</h3>
@@ -83,19 +87,19 @@ const TodayPatientsList = () => {
             </thead>
 
             <tbody>
-              {patients.map((p, index) => (
+              {doctorPatients.map((p, index) => (
                 <tr
-                  key={p.id}
+                  key={index}
                   className="border-b my-5 hover:bg-gray-50 transition-all"
                 >
                   <td className="py-3  px-4 text-gray-700 ">{index + 1}</td>
                   <td className="py-3  px-4 text-gray-800 font-medium">
-                    {p.name}
+                    {p.patientName}
                   </td>
                   <td className="py-3 px-4 text-gray-600">{p.age}</td>
                   <td className="py-3 px-4 text-gray-600">{p.gender}</td>
                   <td className="py-3 px-4 text-gray-600">{p.department}</td>
-                  <td className="py-3 px-4 text-gray-600">{p.doctor}</td>
+                  <td className="py-3 px-4 text-gray-600">{p.doctorName}</td>
                   <td className="py-3 px-4 text-gray-600">{p.time}</td>
                   <td className="py-3 px-4">
                     <span

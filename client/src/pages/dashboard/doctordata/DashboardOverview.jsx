@@ -1,12 +1,38 @@
 import React from "react";
 import { FaUserInjured, FaCalendarCheck, FaNotesMedical, FaClock } from "react-icons/fa";
+import { BASE_URL, API_PATHS } from "../../../utils/apiPath.js"
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from 'axios'
+import { useOutletContext } from "react-router-dom";
 
 const DashboardOverview = () => {
+    const { singleDoctor } = useOutletContext()
+
+
+    const [stats, setStats] = useState({});
+
+    useEffect(() => {
+        const fetchOverview = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const res = await axios.get(`${BASE_URL}${API_PATHS.DOCTOR.OVERVIEW}`, {
+                    headers: { Authorization: `Bearer ${token}` },
+                });
+                setStats(res?.data?.data);
+
+            } catch (err) {
+                console.error("Error loading overview:", err);
+            }
+        };
+        fetchOverview();
+    }, []);
+
     return (
         <div className="p-8 bg-gray-50 min-h-screen">
             {/* Header */}
             <div className="text-center mb-10">
-                <h1 className="text-4xl font-bold text-blue-700">Hello, Dr. Ahsan 👋</h1>
+                <h1 className="text-4xl font-bold text-blue-700">Hello, Dr. {singleDoctor?.name} 👋</h1>
                 <p className="text-gray-600 mt-2 text-lg">
                     Here's a quick overview of your clinic activity today.
                 </p>
@@ -19,7 +45,7 @@ const DashboardOverview = () => {
                     <div className="flex justify-between items-center">
                         <div>
                             <h3 className="text-lg font-semibold text-gray-700">Total Patients</h3>
-                            <p className="text-3xl font-bold text-blue-700 mt-2">120</p>
+                            <p className="text-3xl font-bold text-blue-700 mt-2">{stats?.totalPatients}</p>
                         </div>
                         <FaUserInjured className="text-5xl text-blue-500 opacity-80" />
                     </div>
@@ -30,7 +56,7 @@ const DashboardOverview = () => {
                     <div className="flex justify-between items-center">
                         <div>
                             <h3 className="text-lg font-semibold text-gray-700">Today's Appointments</h3>
-                            <p className="text-3xl font-bold text-green-700 mt-2">8</p>
+                            <p className="text-3xl font-bold text-green-700 mt-2">{stats?.todayAppointments}</p>
                         </div>
                         <FaCalendarCheck className="text-5xl text-green-500 opacity-80" />
                     </div>
@@ -41,7 +67,7 @@ const DashboardOverview = () => {
                     <div className="flex justify-between items-center">
                         <div>
                             <h3 className="text-lg font-semibold text-gray-700">Pending Notes</h3>
-                            <p className="text-3xl font-bold text-yellow-700 mt-2">3</p>
+                            <p className="text-3xl font-bold text-yellow-700 mt-2">{stats?.pendingNotes}</p>
                         </div>
                         <FaNotesMedical className="text-5xl text-yellow-500 opacity-80" />
                     </div>
@@ -52,7 +78,7 @@ const DashboardOverview = () => {
                     <div className="flex justify-between items-center">
                         <div>
                             <h3 className="text-lg font-semibold text-gray-700">Available Hours</h3>
-                            <p className="text-3xl font-bold text-red-700 mt-2">4 hrs</p>
+                            <p className="text-3xl font-bold text-red-700 mt-2">{stats?.availableHours}</p>
                         </div>
                         <FaClock className="text-5xl text-red-500 opacity-80" />
                     </div>

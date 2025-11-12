@@ -2,10 +2,15 @@ import { useState } from "react";
 import Sidebar from "../../components/layout/Sidebar";
 import { FaBars, FaCalendarCheck, FaTimes } from "react-icons/fa";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+import toast from 'react-hot-toast'
+import { API_PATHS, BASE_URL } from "../../utils/apiPath";
 
 
-
-const DoctorDashboard = ({ role }) => { 
+const DoctorDashboard = ({ role }) => {
+  // const [doctorData, setDoctorData] = useState(null);
+  const [singleDoctor, setSingleDoctor] = useState(null);
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);
 
@@ -15,6 +20,23 @@ const DoctorDashboard = ({ role }) => {
   }
 
 
+  const fetchDoctor = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      const res = await axios.get(`${BASE_URL}${API_PATHS.DOCTOR.PROFILE}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setSingleDoctor(res.data.doctor);
+      console.log(res?.data?.doctor)
+    } catch (err) {
+      console.error("Error fetching doctor:", err);
+      toast.error("Failed to fetch doctor profile");
+    }
+  };
+  useEffect(() => {
+    fetchDoctor();
+  }, []);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -43,7 +65,7 @@ const DoctorDashboard = ({ role }) => {
           <div className="flex items-center gap-3">
             <div className="flex flex-col items-end">
               <span className="text-gray-800 font-semibold text-sm sm:text-base">
-                Zohaib Akhter
+                {singleDoctor?.name}
               </span>
               <span className="text-gray-500 text-xs sm:text-sm">{role}</span>
             </div>
@@ -58,7 +80,7 @@ const DoctorDashboard = ({ role }) => {
         </header>
 
         <main className="bg-gray-50 h-screen overflow-y-scroll">
-          <Outlet />
+          <Outlet context={{ singleDoctor }} />
         </main>
       </div>
     </div >

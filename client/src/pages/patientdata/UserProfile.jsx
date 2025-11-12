@@ -1,20 +1,12 @@
 import React, { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 const UserProfile = () => {
-    const [user, setUser] = useState({
-        name: "Zohaib Akhter",
-        email: "zohaib@example.com",
-        role: "Patient",
-        age: 22,
-        gender: "Male",
-        profileImg:
-            "https://cdn-icons-png.flaticon.com/512/3135/3135715.png",
-        coverImg:
-            "https://images.unsplash.com/photo-1606813902794-7f1e0cc5b76e?auto=format&fit=crop&w=1200&q=60",
-    });
+    const { patientData } = useOutletContext()
+
 
     const [isEditing, setIsEditing] = useState(false);
-    const [formData, setFormData] = useState(user);
+    // const [formData, setFormData] = useState(user);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,6 +18,7 @@ const UserProfile = () => {
         setUser(formData);
         setIsEditing(false);
     };
+
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -39,7 +32,7 @@ const UserProfile = () => {
                 {/* Profile Image */}
                 <div className="absolute left-1/2 -bottom-16 transform -translate-x-1/2">
                     <img
-                        src={user.profileImg}
+                        src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiibOngFYog5Ri5UoFKH3CsHMOvomBLf4JAw&s'}
                         alt="User"
                         className="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover"
                     />
@@ -48,13 +41,12 @@ const UserProfile = () => {
 
             {/* User Info Section */}
             <div className="pt-24 pb-10 px-6 text-center">
-                <h1 className="text-3xl font-bold text-gray-800">{user.name}</h1>
-                <p className="text-gray-500 text-lg">{user.email}</p>
+                <h1 className="text-3xl font-bold text-gray-800">{patientData?.name}</h1>
+                <p className="text-gray-500 text-lg">{patientData?.email}</p>
 
                 {/* Edit Button */}
                 <button
                     onClick={() => {
-                        setFormData(user);
                         setIsEditing(true);
                     }}
                     className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium shadow-md transition-all"
@@ -66,25 +58,19 @@ const UserProfile = () => {
                 <div className="mt-6 flex flex-col sm:flex-row justify-center gap-6 max-w-2xl mx-auto">
                     <div className="bg-white shadow-md rounded-xl p-4 w-full sm:w-1/3">
                         <p className="text-gray-500 text-sm">Role</p>
-                        <p className="text-lg font-semibold text-blue-700">{user.role}</p>
+                        <p className="text-lg font-semibold text-blue-700">{patientData?.role}</p>
                     </div>
                     <div className="bg-white shadow-md rounded-xl p-4 w-full sm:w-1/3">
                         <p className="text-gray-500 text-sm">Age</p>
-                        <p className="text-lg font-semibold text-green-600">{user.age}</p>
+                        <p className="text-lg font-semibold text-green-600">{patientData?.age}</p>
                     </div>
                     <div className="bg-white shadow-md rounded-xl p-4 w-full sm:w-1/3">
                         <p className="text-gray-500 text-sm">Gender</p>
-                        <p className="text-lg font-semibold text-pink-600">{user.gender}</p>
+                        <p className="text-lg font-semibold text-pink-600">{patientData?.email}</p>
                     </div>
                 </div>
 
-                <div className="mt-10 text-gray-600 max-w-2xl mx-auto">
-                    <p>
-                        Welcome to your profile! You can view and manage your account
-                        details here. Keep your information updated to get the best
-                        experience.
-                    </p>
-                </div>
+
             </div>
 
             {/* Edit Profile Modal */}

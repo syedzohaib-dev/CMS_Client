@@ -25,7 +25,15 @@ export const API_PATHS = {
     PATIENT: {
         BOOK_APPOINTMENT: "/api/v1/patient/book-appointment",
         GET_SLOTS: (doctorId, date) => `/api/v1/patient/slots?doctorId=${doctorId}&date=${date}`,
-        GET_MY_APPOINTMENT: "/api/v1/patient/my-appointment"
+        GET_MY_APPOINTMENT: "/api/v1/patient/my-appointment",
+        GET_TODAY_DOCTORS: "/api/v1/doctor/today-doctors",
+        GET_STATS: "/api/v1/patient/stats",
+        GET_DATA: "/api/v1/patient/get-data",
     },
+    DOCTOR: {
+        OVERVIEW: "/api/v1/doctor/overview",
+        PROFILE: "/api/v1/doctor/profile",
+        GET_PATIENTS: "/api/v1/doctor/patients"
+    }
 
 };

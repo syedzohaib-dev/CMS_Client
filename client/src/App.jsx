@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Signup from './pages/Signup.jsx'
 import Login from './pages/Login.jsx'
 import PatientDashboard from './pages/dashboard/PatientDashboard.jsx'
@@ -25,68 +25,62 @@ import AdminProfile from './pages/admindata/AdminProfile.jsx'
 import ReportsAnalytics from './pages/admindata/ReportsAnalytics.jsx'
 import { Toaster } from 'react-hot-toast'
 
-
-
 const App = () => {
-
   const userRole = localStorage.getItem('role') // "doctor" | "admin" | "patient"
 
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
-      {/* <UserProvider > */}
+
       <Router>
         <Routes>
 
           {/* Auth Routes */}
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
 
-          {/* Dashboard Routes */}
+          {/* Patient Dashboard */}
           {userRole === "patient" && (
-            <Route path="/dashboard/patient" element={<PatientDashboard role={userRole} />} >
-              <Route path="/dashboard/patient/view" element={<View />} />
-              <Route path="/dashboard/patient/bookappointment" element={<BookAppointmentForm />} />
-              <Route path="/dashboard/patient/records" element={<MedicalRecord />} />
-              <Route path="/dashboard/patient/profile" element={<UserProfile />} />
+            <Route path="/dashboard/patient" element={<PatientDashboard role={userRole} />}>
+              <Route index element={<View />} />
+              <Route path="view" element={<View />} />
+              <Route path="bookappointment" element={<BookAppointmentForm />} />
+              <Route path="records" element={<MedicalRecord />} />
+              <Route path="profile" element={<UserProfile />} />
             </Route>
           )}
 
-          {/* Doctor Dashboard Routes */}
+          {/* Doctor Dashboard */}
           {userRole === "doctor" && (
-            <Route
-              path="/dashboard/doctor" element={<DoctorDashboard role={userRole} />}>
+            <Route path="/dashboard/doctor" element={<DoctorDashboard role={userRole} />}>
               <Route index element={<DashboardOverview />} />
-              <Route path='/dashboard/doctor/overview' element={<DashboardOverview />} />
-              <Route path="/dashboard/doctor/appointments" element={<DoctorAppointments />} />
-              <Route path="/dashboard/doctor/patient-records" element={<TodayPatients />} />
-              <Route path="/dashboard/doctor/add-notes" element={<AddNotes />} />
-              <Route path="/dashboard/doctor/profile" element={<DoctorProfile />} />
+              <Route path="overview" element={<DashboardOverview />} />
+              <Route path="appointments" element={<DoctorAppointments />} />
+              <Route path="patient-records" element={<TodayPatients />} />
+              <Route path="add-notes" element={<AddNotes />} />
+              <Route path="profile" element={<DoctorProfile />} />
             </Route>
           )}
 
+          {/* Admin Dashboard */}
           {userRole === "admin" && (
-            <Route path="/dashboard/admin" element={<AdminDashboard role="Admin" />}>
+            <Route path="/dashboard/admin" element={<AdminDashboard role={userRole} />}>
               <Route index element={<AdminOverview />} />
-              <Route index path="/dashboard/admin/overview" element={<AdminOverview />} />
-              <Route path="/dashboard/admin/manage-doctors" element={<ManageDoctors />} />
-              <Route path="/dashboard/admin/manage-patients" element={<ManagePatients />} />
-              <Route path="/dashboard/admin/room-management" element={<RoomManagement />} />
-              <Route path="/dashboard/admin/appointments" element={<AppointmentRecords />} />
-              <Route path="/dashboard/admin/reports" element={<ReportsAnalytics />} />
-              <Route path="/dashboard/admin/profile" element={<AdminProfile />} />
+              <Route path="overview" element={<AdminOverview />} />
+              <Route path="manage-doctors" element={<ManageDoctors />} />
+              <Route path="manage-patients" element={<ManagePatients />} />
+              <Route path="room-management" element={<RoomManagement />} />
+              <Route path="appointments" element={<AppointmentRecords />} />
+              <Route path="reports" element={<ReportsAnalytics />} />
+              <Route path="profile" element={<AdminProfile />} />
             </Route>
           )}
 
-
-
-          {/* 404 Catch-All Route */}
+          {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-
-      {/* </UserProvider> */}
     </>
   )
 }
