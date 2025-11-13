@@ -16,13 +16,11 @@ const Signup = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  // handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // form validation
   const validateForm = () => {
 
     if (!formData.name.trim()) {
@@ -49,7 +47,6 @@ const Signup = () => {
     return true;
   };
 
-  // form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -57,12 +54,6 @@ const Signup = () => {
       toast.error('Please enter a valid email address.')
       return false;
     }
-
-    // Check empty fields
-    // if (!name || !formData.email || !password || !gender || !age) {
-    //   toast.error("Please fill in all fields!");
-    //   return;
-    // }
 
     if (loading) return;
     if (!validateForm()) return;
@@ -104,7 +95,6 @@ const Signup = () => {
 
   return (
     <div className="minh-screen flex flex-col md:flex-row">
-      {/* Right Side - Signup Form */}
       <div className="w-full h-screen md:w-1/2 flex items-center justify-center bg-gray-50 px-6 py-4">
         <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-10 md:p-8 flex flex-col justify-center">
           <h2 className="text-4xl font-bold text-center text-gray-800 mb-2">
@@ -112,7 +102,6 @@ const Signup = () => {
           </h2>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            {/* Full Name */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
                 Full Name
@@ -128,7 +117,6 @@ const Signup = () => {
               />
             </div>
 
-            {/* Email */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
                 Email Address
@@ -144,7 +132,6 @@ const Signup = () => {
               />
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
                 Password
@@ -166,7 +153,6 @@ const Signup = () => {
                 )}
             </div>
 
-            {/* Gender */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
                 Gender
@@ -185,7 +171,6 @@ const Signup = () => {
               </select>
             </div>
 
-            {/* Age */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
                 Age
@@ -206,7 +191,6 @@ const Signup = () => {
               />
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
@@ -219,7 +203,6 @@ const Signup = () => {
             </button>
           </form>
 
-          {/* Already have an account */}
           <p className="text-center text-gray-600 mt-5">
             Already have an account?{" "}
             <a
@@ -232,7 +215,6 @@ const Signup = () => {
         </div>
       </div>
 
-      {/* Left Side - Image */}
       <div
         className="hidden md:block w-1/2 bg-cover bg-center"
         style={{

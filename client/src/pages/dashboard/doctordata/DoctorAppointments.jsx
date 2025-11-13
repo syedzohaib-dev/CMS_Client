@@ -73,7 +73,6 @@ const DoctorAppointments = () => {
               key={appt.id}
               className="bg-white rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 p-6 min-h-[270px] flex flex-col justify-between"
             >
-              {/* Header */}
               <div>
                 <div className="flex items-center gap-3 border-b pb-3 mb-3">
                   <div className="bg-blue-100 p-3 rounded-full">
@@ -87,7 +86,6 @@ const DoctorAppointments = () => {
                   </div>
                 </div>
 
-                {/* Info */}
                 <div className="space-y-2 text-gray-700">
                   <p className="flex items-center gap-2">
                     <FaClock className="text-blue-600" />
@@ -102,7 +100,6 @@ const DoctorAppointments = () => {
                 </div>
               </div>
 
-              {/* Footer */}
               <div className="flex items-center justify-between mt-4 pt-2 border-t">
                 <span
                   className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(
@@ -113,19 +110,6 @@ const DoctorAppointments = () => {
                 </span>
 
                 <div className="flex gap-2">
-                  {/* <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded-lg text-sm flex items-center gap-1">
-                    <FaNotesMedical /> View
-                  </button>
-
-                  {appt.status === "Pending" ? (
-                    <button className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded-lg text-sm flex items-center gap-1">
-                      <FaCheckCircle /> Done
-                    </button>
-                  ) : (
-                    <button className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-lg text-sm flex items-center gap-1">
-                      <FaTimesCircle /> Cancel
-                    </button>
-                  )} */}
                 </div>
               </div>
             </div>

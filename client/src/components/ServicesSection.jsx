@@ -44,12 +44,10 @@ const ServicesSection = () => {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Heading */}
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">
           Our <span className="text-blue-600">Services</span>
         </h2>
 
-        {/* Service Cards */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
           {services.map((service) => (
             <div

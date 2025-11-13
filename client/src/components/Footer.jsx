@@ -6,7 +6,6 @@ const Footer = () => {
     <footer className="bg-blue-600 text-white pt-12 pb-6">
       <div className="max-w-6xl mx-auto px-6 grid sm:grid-cols-2 md:grid-cols-3 gap-10">
 
-        {/* About Section */}
         <div>
           <h2 className="text-2xl font-bold mb-3">MediConnect Clinic</h2>
           <p className="text-sm text-gray-100 leading-relaxed mb-4">
@@ -20,7 +19,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Quick Links */}
         <div>
           <h2 className="text-xl font-semibold mb-3">Quick Links</h2>
           <ul className="space-y-2 text-gray-100">
@@ -31,7 +29,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Contact Info */}
         <div>
           <h2 className="text-xl font-semibold mb-3">Contact Us</h2>
           <ul className="space-y-3 text-gray-100 text-sm">
@@ -48,7 +45,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom line */}
       <div className="border-t border-white/20 mt-10 pt-5 text-center text-gray-200 text-sm">
         © {new Date().getFullYear()} MediConnect Clinic. All rights reserved.
       </div>

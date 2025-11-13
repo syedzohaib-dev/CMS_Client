@@ -7,7 +7,6 @@ const ImageSlider = ({ user }) => {
 
     return (
         <section className="relative w-full h-[85vh] overflow-hidden">
-            {/* Carousel Images */}
             <div
                 className="w-full h-full bg-cover bg-center"
                 style={{

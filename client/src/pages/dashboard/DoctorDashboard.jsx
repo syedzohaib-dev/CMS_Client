@@ -9,7 +9,6 @@ import { API_PATHS, BASE_URL } from "../../utils/apiPath";
 
 
 const DoctorDashboard = ({ role }) => {
-  // const [doctorData, setDoctorData] = useState(null);
   const [singleDoctor, setSingleDoctor] = useState(null);
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(false);

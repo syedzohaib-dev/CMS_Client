@@ -14,7 +14,6 @@ const BookAppointmentForm = () => {
   const [slots, setSlots] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // ✅ Fetch all doctors
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
@@ -35,7 +34,6 @@ const BookAppointmentForm = () => {
     fetchDoctors();
   }, []);
 
-  // ✅ Generate 15-min time slots (helper)
   const generateTimeSlots = (startTime, endTime) => {
     const slots = [];
     const [startHour, startMin] = startTime.split(":").map(Number);
@@ -64,7 +62,6 @@ const BookAppointmentForm = () => {
     return `${hours}:${mins} ${ampm}`;
   };
 
-  // ✅ Doctor selection → available days show
   const selectedDoctor = doctors.find((doc) => doc._id === formData.doctorId);
   const availableDays = Array.isArray(selectedDoctor?.availableDays)
     ? selectedDoctor.availableDays
@@ -81,7 +78,6 @@ const BookAppointmentForm = () => {
 
         console.log("Slots fetched:", res.data.slots);
         setSlots(res.data.slots?.filter((s) => s.trim()) || []);
-        // setSlots(res.data.slots || []);
       } catch (err) {
         console.error("Error fetching slots:", err);
         toast.error("Failed to load available slots");
@@ -90,7 +86,6 @@ const BookAppointmentForm = () => {
     fetchAvailableSlots();
   }, [formData.doctorId, formData.date]);
 
-  // ✅ Handle form changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -99,7 +94,6 @@ const BookAppointmentForm = () => {
     }));
   };
 
-  // ✅ Submit appointment
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("token");
@@ -144,7 +138,6 @@ const BookAppointmentForm = () => {
           <p className="text-center text-gray-600">Loading doctors...</p>
         ) : (
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Doctor selection */}
             <div>
               <label className="font-medium text-gray-700 mb-2 block">Select Doctor</label>
               <select
@@ -163,7 +156,6 @@ const BookAppointmentForm = () => {
               </select>
             </div>
 
-            {/* Day */}
             <div>
               <label className="font-medium text-gray-700 mb-2 block">Available Days</label>
               <select
@@ -182,7 +174,6 @@ const BookAppointmentForm = () => {
               </select>
             </div>
 
-            {/* Date */}
             <div>
               <label className="font-medium text-gray-700 mb-2 block">Select Date</label>
               <input
@@ -196,7 +187,6 @@ const BookAppointmentForm = () => {
               />
             </div>
 
-            {/* Time slots */}
             <div>
               <label className="font-medium text-gray-700 mb-2 block">Available Time Slots</label>
               <select

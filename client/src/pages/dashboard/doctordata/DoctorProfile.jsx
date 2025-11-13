@@ -4,7 +4,6 @@ import { useOutletContext } from "react-router-dom";
 const DoctorProfile = () => {
 
   const { singleDoctor } = useOutletContext()
-  // const [isEditing, setIsEditing] = useState(false);
 
   return (
     <div className="min-h-[650px] bg-gray-100 flex flex-col items-center">

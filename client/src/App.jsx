@@ -35,12 +35,10 @@ const App = () => {
       <Router>
         <Routes>
 
-          {/* Auth Routes */}
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
 
-          {/* Patient Dashboard */}
           {userRole === "patient" && (
             <Route path="/dashboard/patient" element={<PatientDashboard role={userRole} />}>
               <Route index element={<View />} />
@@ -51,7 +49,6 @@ const App = () => {
             </Route>
           )}
 
-          {/* Doctor Dashboard */}
           {userRole === "doctor" && (
             <Route path="/dashboard/doctor" element={<DoctorDashboard role={userRole} />}>
               <Route index element={<DashboardOverview />} />
@@ -63,7 +60,6 @@ const App = () => {
             </Route>
           )}
 
-          {/* Admin Dashboard */}
           {userRole === "admin" && (
             <Route path="/dashboard/admin" element={<AdminDashboard role={userRole} />}>
               <Route index element={<AdminOverview />} />
@@ -77,7 +73,6 @@ const App = () => {
             </Route>
           )}
 
-          {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

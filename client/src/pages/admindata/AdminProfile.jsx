@@ -31,7 +31,6 @@ const AdminProfile = () => {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      {/* Cover Image */}
       <div
         className="w-full h-56 bg-cover bg-center flex justify-center items-center"
         style={{ backgroundImage: `url(${admin.coverImg})` }}
@@ -41,7 +40,6 @@ const AdminProfile = () => {
         </div>
       </div>
 
-      {/* Profile Image and Info */}
       <div className="flex flex-col items-center -mt-16 px-6">
         <img
           src={admin.profileImg}
@@ -63,7 +61,6 @@ const AdminProfile = () => {
           Edit Profile
         </button>
 
-        {/* Info Grid */}
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl w-full">
           <div className="bg-white shadow-md rounded-xl p-4">
             <p className="text-gray-500 text-sm">Role</p>
@@ -94,7 +91,6 @@ const AdminProfile = () => {
        
       </div>
 
-      {/* Edit Modal */}
       {isEditing && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl shadow-lg p-6 w-11/12 max-w-lg">

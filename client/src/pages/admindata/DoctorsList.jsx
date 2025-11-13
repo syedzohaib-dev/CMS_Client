@@ -9,7 +9,6 @@ const DoctorsList = ({ doctors, handleEdit, handleDelete }) => {
                     key={doc._id}
                     className="bg-white shadow-lg rounded-2xl p-5 border border-gray-100 hover:shadow-xl transition-all duration-200 overflow-hidden"
                 >
-                    {/* Doctor Info */}
                     <div className="flex flex-wrap items-center gap-4">
                         <img
                             src={
@@ -30,7 +29,6 @@ const DoctorsList = ({ doctors, handleEdit, handleDelete }) => {
                         </div>
                     </div>
 
-                    {/* Details */}
                     <div className="mt-4 text-sm text-gray-600 space-y-1">
                         <p className="wrap-break-word">
                             <span className="font-semibold text-gray-700">Experience:</span>{" "}
@@ -55,7 +53,6 @@ const DoctorsList = ({ doctors, handleEdit, handleDelete }) => {
                         </p>
                     </div>
 
-                    {/* Buttons */}
                     <div className="flex justify-between sm:justify-end flex-wrap gap-3 mt-5 w-full">
                         <button
                             onClick={() => handleEdit(doc)}

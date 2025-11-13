@@ -30,7 +30,6 @@ const DashboardOverview = () => {
 
     return (
         <div className="p-8 bg-gray-50 min-h-screen">
-            {/* Header */}
             <div className="text-center mb-10">
                 <h1 className="text-4xl font-bold text-blue-700">Hello, Dr. {singleDoctor?.name} 👋</h1>
                 <p className="text-gray-600 mt-2 text-lg">
@@ -38,9 +37,7 @@ const DashboardOverview = () => {
                 </p>
             </div>
 
-            {/* Dashboard Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-                {/* Total Patients */}
                 <div className="bg-blue-100 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
                     <div className="flex justify-between items-center">
                         <div>
@@ -51,7 +48,6 @@ const DashboardOverview = () => {
                     </div>
                 </div>
 
-                {/* Today's Appointments */}
                 <div className="bg-green-100 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
                     <div className="flex justify-between items-center">
                         <div>
@@ -62,7 +58,6 @@ const DashboardOverview = () => {
                     </div>
                 </div>
 
-                {/* Pending Notes */}
                 <div className="bg-yellow-100 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
                     <div className="flex justify-between items-center">
                         <div>
@@ -73,7 +68,6 @@ const DashboardOverview = () => {
                     </div>
                 </div>
 
-                {/* Available Hours */}
                 <div className="bg-red-100 p-6 rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1">
                     <div className="flex justify-between items-center">
                         <div>
@@ -85,7 +79,6 @@ const DashboardOverview = () => {
                 </div>
             </div>
 
-            {/* Summary / Note */}
             <div className="max-w-4xl mx-auto mt-12 bg-white shadow-md rounded-xl p-6 border-l-4 border-blue-600">
                 <h2 className="text-2xl font-semibold text-blue-700 mb-2">Daily Summary</h2>
                 <p className="text-gray-600 leading-relaxed">

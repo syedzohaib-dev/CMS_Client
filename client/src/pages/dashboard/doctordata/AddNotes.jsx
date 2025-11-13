@@ -54,7 +54,6 @@ const AddNotes = () => {
     alert("Patient notes saved successfully!");
   };
 
-  // Get selected patient info
   const selectedPatient = patients.find(
     (p) => p.id === Number(formData.patientId)
   );
@@ -69,7 +68,6 @@ const AddNotes = () => {
         onSubmit={handleSubmit}
         className="max-w-6xl mx-auto bg-white p-8 rounded-2xl shadow-md space-y-6"
       >
-        {/* Select Patient */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">
             Select Patient
@@ -90,7 +88,6 @@ const AddNotes = () => {
           </select>
         </div>
 
-        {/* Auto-filled Details */}
         {selectedPatient ? (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-blue-50 p-4 rounded-lg shadow-sm">
@@ -125,7 +122,6 @@ const AddNotes = () => {
           ))
         }
 
-        {/* Problem / Complaint */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">
             Patient Problem / Symptoms
@@ -140,7 +136,6 @@ const AddNotes = () => {
           ></textarea>
         </div>
 
-        {/* Diagnosis */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">
             Diagnosis
@@ -155,7 +150,6 @@ const AddNotes = () => {
           ></textarea>
         </div>
 
-        {/* Prescription */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">
             Prescription
@@ -206,7 +200,6 @@ const AddNotes = () => {
           </button>
         </div>
 
-        {/* Follow-up Date */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">
             Follow-up Date
@@ -220,7 +213,6 @@ const AddNotes = () => {
           />
         </div>
 
-        {/* Notes */}
         <div>
           <label className="block text-gray-700 font-medium mb-2">
             Additional Doctor Notes
@@ -235,7 +227,6 @@ const AddNotes = () => {
           ></textarea>
         </div>
 
-        {/* Submit */}
         <div className="flex justify-end">
           <button
             type="submit"

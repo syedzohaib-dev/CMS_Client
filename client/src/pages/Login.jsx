@@ -41,7 +41,6 @@ const Login = () => {
 
       toast.success("Login Successful!");
 
-      // reset inputs after success
       setFormData({ email: "", password: "" });
 
       setTimeout(() => {
@@ -56,14 +55,12 @@ const Login = () => {
         { duration: 4000 }
       );
     } finally {
-      // Always reset loading
       setLoading(false);
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      {/* Right Side - Login Form */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-gray-50 px-6 py-12">
         <div className="w-full max-w-md bg-white shadow-2xl rounded-2xl p-10 md:p-12">
           <h2 className="text-4xl font-bold text-center text-gray-800 mb-2">
@@ -74,7 +71,6 @@ const Login = () => {
           </p>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-            {/* Email */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
                 Email Address
@@ -90,7 +86,6 @@ const Login = () => {
               />
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-gray-700 font-medium mb-1">
                 Password
@@ -106,7 +101,6 @@ const Login = () => {
               />
             </div>
 
-            {/* Button */}
             <button
               type="submit"
               disabled={loading}
@@ -119,7 +113,6 @@ const Login = () => {
             </button>
           </form>
 
-          {/* Signup link */}
           <p className="text-center text-gray-600 mt-6">
             Don’t have an account?{" "}
             <a
@@ -132,7 +125,6 @@ const Login = () => {
         </div>
       </div>
 
-      {/* Left Side - Image */}
       <div
         className="hidden md:block w-1/2 bg-cover bg-center"
         style={{

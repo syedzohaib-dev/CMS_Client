@@ -18,13 +18,11 @@ const RoomManagement = () => {
 
   const [rooms, setRooms] = useState([]);
 
-  // Input handle
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // ✅ Add / Edit Room
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -34,7 +32,6 @@ const RoomManagement = () => {
       return;
     }
 
-    // Validation before API call
     if (!formData.roomNumber || !formData.roomType || !formData.availableFrom || !formData.availableTo) {
       toast.error("Please fill all fields");
       return;
@@ -48,10 +45,8 @@ const RoomManagement = () => {
         { headers: { Authorization: `Bearer ${token}` } });
       toast.success("Room added successfully!");
       console.log(res?.data)
-      // Update UI instantly
       setRooms((prev) => [...prev, res.data.room]);
 
-      // Reset fields
       setFormData({
         roomNumber: "",
         roomType: "Consultation",
@@ -68,7 +63,7 @@ const RoomManagement = () => {
 
 
   const fetchRooms = async () => {
-    const token = localStorage.getItem("token"); // <-- define token
+    const token = localStorage.getItem("token");
 
     if (!token) {
       toast.error("Unauthorized! Please login again.");
@@ -174,7 +169,6 @@ const RoomManagement = () => {
         </div>
       </form>
 
-      {/* Room List */}
       <div className="mt-12 mx-auto bg-white rounded-xl shadow-md p-6 border border-gray-100 max-w-6xl">
         <h3 className="text-2xl font-bold text-blue-700 mb-6 flex items-center gap-2">
           <FaDoorOpen className="text-blue-700" /> Existing Rooms

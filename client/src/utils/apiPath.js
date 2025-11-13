@@ -5,7 +5,6 @@ const PROD_BASE_URL = "https://cms-server-one.vercel.app";
 export const BASE_URL =
     window.location.hostname === "localhost" ? LOCAL_BASE_URL : PROD_BASE_URL;
 
-// All API endpoints
 export const API_PATHS = {
     AUTH: {
         LOGIN: "/api/v1/auth/login",

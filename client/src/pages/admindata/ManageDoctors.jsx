@@ -69,9 +69,8 @@ const ManageDoctors = () => {
             return;
         }
 
-        // Example use before sending API request
-        const formattedStart = convertTo12HourFormat(formData.startTime); // 11:00 -> 11:00 AM
-        const formattedEnd = convertTo12HourFormat(formData.endTime);     // 15:00 -> 3:00 PM
+        const formattedStart = convertTo12HourFormat(formData.startTime);
+        const formattedEnd = convertTo12HourFormat(formData.endTime);
         console.log(formattedStart, formattedEnd)
 
         const payload = {
@@ -180,7 +179,6 @@ const ManageDoctors = () => {
 
             <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-xl p-8 space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Doctor Name */}
                     <div>
                         <label className="block text-gray-700 mb-1 font-medium">Doctor Name</label>
                         <input
@@ -193,7 +191,6 @@ const ManageDoctors = () => {
                         />
                     </div>
 
-                    {/* Email */}
                     <div>
                         <label className="block text-gray-700 mb-1 font-medium">Email</label>
                         <input
@@ -206,7 +203,6 @@ const ManageDoctors = () => {
                         />
                     </div>
 
-                    {/* Password */}
                     <div>
                         <label className="block text-gray-700 mb-1 font-medium">Password</label>
                         <input
@@ -218,7 +214,6 @@ const ManageDoctors = () => {
                         />
                     </div>
 
-                    {/* Specialization */}
                     <div>
                         <label className="block text-gray-700 mb-1 font-medium">Specialization</label>
                         <input
@@ -230,7 +225,6 @@ const ManageDoctors = () => {
                         />
                     </div>
 
-                    {/* Degree */}
                     <div>
                         <label className="block text-gray-700 mb-1 font-medium">Degree</label>
                         <input
@@ -242,7 +236,6 @@ const ManageDoctors = () => {
                         />
                     </div>
 
-                    {/* Experience */}
                     <div>
                         <label className="block text-gray-700 mb-1 font-medium">Experience</label>
                         <input
@@ -254,7 +247,6 @@ const ManageDoctors = () => {
                         />
                     </div>
 
-                    {/* Age */}
                     <div>
                         <label className="block text-gray-700 mb-1 font-medium">Age</label>
                         <input
@@ -272,7 +264,6 @@ const ManageDoctors = () => {
                         />
                     </div>
 
-                    {/* Gender */}
                     <div>
                         <label className="block text-gray-700 mb-1 font-medium">Gender</label>
                         <select
@@ -287,7 +278,6 @@ const ManageDoctors = () => {
                         </select>
                     </div>
 
-                    {/* Available Days */}
                     <div className="md:col-span-2">
                         <label className="block text-gray-700 mb-2 font-medium">Available Days</label>
                         <div className="flex flex-wrap gap-3">
@@ -305,7 +295,6 @@ const ManageDoctors = () => {
                         </div>
                     </div>
 
-                    {/* Time Pickers */}
                     <div className="md:col-span-2 flex gap-6">
                         <div>
                             <label className="block text-gray-700 mb-1 font-medium">Start Time</label>
@@ -327,7 +316,6 @@ const ManageDoctors = () => {
                         </div>
                     </div>
 
-                    {/* Profile Photo */}
                     <div className="md:col-span-2">
                         <label className="block text-gray-700 mb-1 font-medium">Profile Photo URL</label>
                         <input
@@ -350,7 +338,6 @@ const ManageDoctors = () => {
                 </div>
             </form>
 
-            {/* Doctor List */}
             <div className="mt-12  rounded-xl  p-6 ">
                 <h3 className="text-2xl font-bold text-blue-700 mb-4">Registered Doctors</h3>
                 {doctors.length === 0 ? (

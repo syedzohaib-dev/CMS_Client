@@ -6,7 +6,6 @@ const UserProfile = () => {
 
 
     const [isEditing, setIsEditing] = useState(false);
-    // const [formData, setFormData] = useState(user);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,14 +21,12 @@ const UserProfile = () => {
 
     return (
         <div className="min-h-screen bg-gray-100">
-            {/* Cover Image */}
             <div
                 className="w-full h-56 bg-cover bg-center relative"
                 style={{ backgroundImage: `url('/images/profile-cover.jpg')` }}
             >
                 <div className="absolute inset-0"></div>
 
-                {/* Profile Image */}
                 <div className="absolute left-1/2 -bottom-16 transform -translate-x-1/2">
                     <img
                         src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiibOngFYog5Ri5UoFKH3CsHMOvomBLf4JAw&s'}
@@ -39,12 +36,10 @@ const UserProfile = () => {
                 </div>
             </div>
 
-            {/* User Info Section */}
             <div className="pt-24 pb-10 px-6 text-center">
                 <h1 className="text-3xl font-bold text-gray-800">{patientData?.name}</h1>
                 <p className="text-gray-500 text-lg">{patientData?.email}</p>
 
-                {/* Edit Button */}
                 <button
                     onClick={() => {
                         setIsEditing(true);
@@ -54,7 +49,6 @@ const UserProfile = () => {
                     Edit Profile
                 </button>
 
-                {/* Info Cards */}
                 <div className="mt-6 flex flex-col sm:flex-row justify-center gap-6 max-w-2xl mx-auto">
                     <div className="bg-white shadow-md rounded-xl p-4 w-full sm:w-1/3">
                         <p className="text-gray-500 text-sm">Role</p>
@@ -73,7 +67,6 @@ const UserProfile = () => {
 
             </div>
 
-            {/* Edit Profile Modal */}
             {isEditing && (
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
                     <div className="bg-white rounded-xl shadow-lg p-6 w-11/12 max-w-lg relative">
